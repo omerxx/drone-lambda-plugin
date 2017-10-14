@@ -2,6 +2,7 @@ package main
 
 import (
     "fmt"
+    "os"
     "github.com/aws/aws-sdk-go/service/lambda"
     "github.com/aws/aws-sdk-go/aws/session"
     "github.com/aws/aws-sdk-go/aws/awserr"
@@ -15,10 +16,10 @@ func main() {
     }))
 
     input := &lambda.UpdateFunctionCodeInput{
-        FunctionName:    aws.String(os.GetEnv("PLUGIN_FUNCTION_NAME")),
+        FunctionName:    aws.String(os.Getenv("PLUGIN_FUNCTION_NAME")),
         Publish:         aws.Bool(true),
-        S3Bucket:        aws.String(os.GetEnv("PLUGIN_S3_BUCKET")),
-        S3Key:           aws.String(os.GetEnv("PLUGIN_PATH_PREFIX") + os.GetEnv("PLUGIN_FILE_NAME"))
+        S3Bucket:        aws.String(os.Getenv("PLUGIN_S3_BUCKET")),
+        S3Key:           aws.String(os.Getenv("PLUGIN_PATH_PREFIX") + "/" + os.Getenv("PLUGIN_FILE_NAME")),
     }
 
     result, err := svc.UpdateFunctionCode(input)
