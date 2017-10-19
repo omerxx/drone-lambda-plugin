@@ -1,9 +1,9 @@
-FROM alpine:3.2
+FROM alpine
 
 RUN apk update && \
     apk add \
     ca-certificates && \
     rm -rf /var/cache/apk/*
 
-ADD drone-ecs /bin/
-ENTRYPOINT ["/bin/drone-ecs"]
+ADD . /app
+ENTRYPOINT ["/app/main"]
