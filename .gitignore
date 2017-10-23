@@ -1,4 +1,5 @@
 *.swp
+main
 github.com
 golang.org
 
