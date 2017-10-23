@@ -12,8 +12,8 @@ pipeline:
   deploy-lambda:
     image: omerxx/drone-lambda-plugin
     pull: true
-    function_name: testrevenuereport
-    s3_bucket: devops.spot.im
+    function_name: my-function
+    s3_bucket: some-bucket
     path_prefix: lambda
     file_name: lambda-project-${DRONE_BUILD_NUMBER}.zip
 ```
