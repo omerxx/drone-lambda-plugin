@@ -5,5 +5,9 @@ RUN apk update && \
     ca-certificates && \
     rm -rf /var/cache/apk/*
 
-ADD . /app
-ENTRYPOINT ["/app/main"]
+ENV AWS_SDK_LOAD_CONFIG=true
+
+ADD main /bin/
+
+ENTRYPOINT ["/bin/main"]
+
