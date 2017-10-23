@@ -52,7 +52,7 @@ pipeline:
     image: python:2.7-alpine
     commands:
       - apk update && apk add zip
-      - pip install -r requirements.txt
+      - pip install -r requirements.txt -t .
       - zip -r -9 lambda-project-${DRONE_BUILD_NUMBER}.zip *
 
   s3-publish:
