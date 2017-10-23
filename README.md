@@ -19,8 +19,9 @@ docker build --rm=true -t omerxx/drone-lambda-plugin .
 
 ## Usage:
 
-#### Execute from the working directory; this will update `my-function` with a zip file under `S3://some-bucket/lambda/lambda-project-1.zip`:
-```
+#### Execute from the working directory; 
+this will update `my-function` with a zip file under `S3://some-bucket/lambda/lambda-project-1.zip`:
+```bash
 docker run --rm \
   -e PLUGIN_FUNCTION_NAME=my-function \
   -e PLUGIN_S3_BUCKET=some-bucket \
