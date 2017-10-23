@@ -1,9 +1,7 @@
 # Drone Lambda Plugin
 
-## Deploying updates to AWS's Lambda
-[![Build Status](https://droneio.spot.im/api/badges/omerxx/drone-lambda-plugin/status.svg)](https://droneio.spot.im/omerxx/drone-lambda-plugin)
-
 ### The plugin utilizes AWS go-sdk to update an existing function's code; build your code, zip it with dependencies and upload it to S3. Then trigger the plugin for deploy.
+[![Build Status](https://droneio.spot.im/api/badges/omerxx/drone-lambda-plugin/status.svg)](https://droneio.spot.im/omerxx/drone-lambda-plugin)
 
 ## Build:
 Build the binary:
@@ -20,7 +18,7 @@ docker build --rm=true -t omerxx/drone-lambda-plugin .
 ## Usage:
 
 #### Execute from the working directory; 
-this will update `my-function` with a zip file under `S3://some-bucket/lambda/lambda-project-1.zip`:
+This will update `my-function` with a zip file under `S3://some-bucket/lambda/lambda-project-1.zip`:
 ```bash
 docker run --rm \
   -e PLUGIN_FUNCTION_NAME=my-function \
