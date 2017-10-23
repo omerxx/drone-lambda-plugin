@@ -5,7 +5,34 @@
 
 ### The plugin utilizes AWS go-sdk to update an existing function's code; build your code, zip it with dependencies and upload it to S3. Then trigger the plugin for deploy.
 
-### Example:
+## Build:
+Build the binary:
+```
+go build main.go
+```
+
+## Docker:
+Build the container:
+```
+docker build --rm=true -t omerxx/drone-lambda-plugin .
+```
+
+## Usage:
+
+#### Execute from the working directory; this will update `my-function` with a zip file under `S3://some-bucket/lambda/lambda-project-1.zip`:
+```
+docker run --rm \
+  -e PLUGIN_FUNCTION_NAME=my-function \
+  -e PLUGIN_S3_BUCKET=some-bucket \
+  -e PLUGIN_PATH_PREFIX=lambda \
+  -e PLUGIN_FILE_NAME=lambda-project-1.zip \
+  -v $(pwd):$(pwd) \
+  -w $(pwd) \
+  --privileged \
+  plugins/docker --dry-run
+```
+
+#### Example:
 
 ```yaml
 pipeline:
@@ -18,7 +45,7 @@ pipeline:
     file_name: lambda-project-${DRONE_BUILD_NUMBER}.zip
 ```
 
-### Example of a complete Lambda project's pipeline:
+#### Example of a complete Lambda project's pipeline:
 
 ```yaml
 pipeline:
