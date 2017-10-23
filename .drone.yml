@@ -17,4 +17,4 @@ pipeline:
     tags: [ "latest", "${DRONE_BUILD_NUMBER}" ]
     email: omerxx@gmail.com
     tags: latest
-    secrets: [ docker_username, docker_password ]
+    secrets: [ docker_username, docker_password, docker_email ]
