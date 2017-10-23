@@ -1,2 +1,53 @@
-# TODO
+# Drone Lambda Plugin
+
+## Deploying updates to AWS's Lambda
 [![Build Status](https://droneio.spot.im/api/badges/omerxx/drone-lambda-plugin/status.svg)](https://droneio.spot.im/omerxx/drone-lambda-plugin)
+
+### The plugin utilizes AWS go-sdk to update an existing function's code; build your code, zip it with dependencies and upload it to S3. Then trigger the plugin for deploy.
+
+### Example:
+
+```yaml
+pipeline:
+  deploy-lambda:
+    image: omerxx/drone-lambda-plugin
+    pull: true
+    function_name: testrevenuereport
+    s3_bucket: devops.spot.im
+    path_prefix: lambda
+    file_name: lambda-project-${DRONE_BUILD_NUMBER}.zip
+```
+
+### Example of a complete Lambda project's pipeline:
+
+```yaml
+pipeline:
+  build:
+    image: python:2.7-alpine
+    commands:
+      - apk update && apk add zip
+      - pip install -r requirements.txt
+      - zip -r -9 lambda-project-${DRONE_BUILD_NUMBER}.zip *
+
+  s3-publish:
+    image: plugins/s3
+    acl: private
+    region: us-east-1
+    bucket: some-bucket
+    target: lambda
+    source: lambda-project-${DRONE_BUILD_NUMBER}.zip
+
+  deploy-lambda:
+    image: omerxx/drone-lambda-plugin
+    pull: true
+    function_name: testrevenuereport
+    s3_bucket: devops.spot.im
+    path_prefix: lambda
+    file_name: revenue-report-${DRONE_BUILD_NUMBER}.zip
+
+  notify-slack-releases:
+    image: plugins/slack
+    channel: product-releases
+    webhook: https://hooks.slack.com/services/ABCD/XYZ
+    username: Drone-CI
+```
