@@ -7,3 +7,9 @@ pipeline:
     - make vet
     - make build
     - make test
+
+  docker:
+    image: omerxx/docker-lambda-plugin
+    email: omerxx@gmail.com
+    tags: latest
+    secrets: [ docker_username, docker_password ]
