@@ -14,7 +14,9 @@ pipeline:
       - make test
 
   docker:
-    image: omerxx/docker-lambda-plugin
+    image: plugins/docker
+    repo: omerxx/drone-lambda-plugin
+    tags: [ latest, ${DRONE_BUILD_NUMBER} ]
     email: omerxx@gmail.com
     tags: latest
     secrets: [ docker_username, docker_password ]
