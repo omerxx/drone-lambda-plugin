@@ -7,7 +7,9 @@ RUN apk update && \
 
 ENV AWS_SDK_LOAD_CONFIG=true
 
-ADD main /bin/
+RUN pwd
+
+ADD /go/src/github.com/omerxx/drone-lambda-plugin/main /bin/
 
 ENTRYPOINT ["/bin/main"]
 
