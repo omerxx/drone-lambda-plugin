@@ -9,7 +9,7 @@ ENV AWS_SDK_LOAD_CONFIG=true
 
 RUN pwd
 
-ADD /go/src/github.com/omerxx/drone-lambda-plugin/main /bin/
+ADD main /bin/
 
 ENTRYPOINT ["/bin/main"]
 

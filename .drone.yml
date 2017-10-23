@@ -8,10 +8,8 @@ pipeline:
     environment:
       - CGO_ENABLED=0
     commands:
-      - make deps
-      - make vet
-      - make build
-      - make test
+      - go get ./...
+      - go build main.go
 
   docker:
     image: plugins/docker
