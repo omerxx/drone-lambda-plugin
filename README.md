@@ -18,13 +18,12 @@ docker build --rm=true -t omerxx/drone-lambda-plugin .
 ## Usage:
 
 #### Execute from the working directory; 
-This will update `my-function` with a zip file under `S3://some-bucket/lambda/lambda-project-1.zip`:
+This will update `my-function` with a zip file under `S3://some-bucket/lambda-dir/lambda-project-1.zip`:
 ```bash
 docker run --rm \
   -e PLUGIN_FUNCTION_NAME=my-function \
   -e PLUGIN_S3_BUCKET=some-bucket \
-  -e PLUGIN_PATH_PREFIX=lambda \
-  -e PLUGIN_FILE_NAME=lambda-project-1.zip \
+  -e PLUGIN_FILE_NAME=lambda-directory/lambda-project-1.zip \
   -v $(pwd):$(pwd) \
   -w $(pwd) \
   --privileged \
@@ -40,8 +39,7 @@ pipeline:
     pull: true
     function_name: my-function
     s3_bucket: some-bucket
-    path_prefix: lambda
-    file_name: lambda-project-${DRONE_BUILD_NUMBER}.zip
+    file_name: lambda-dir/lambda-project-${DRONE_BUILD_NUMBER}.zip
 ```
 
 #### Example of a complete Lambda project's pipeline:
@@ -68,8 +66,7 @@ pipeline:
     pull: true
     function_name: my-function
     s3_bucket: devops.spot.im
-    path_prefix: lambda
-    file_name: revenue-report-${DRONE_BUILD_NUMBER}.zip
+    file_name: lambda-dir/revenue-report-${DRONE_BUILD_NUMBER}.zip
 
   notify-slack-releases:
     image: plugins/slack
