@@ -19,7 +19,7 @@ func main() {
         FunctionName:    aws.String(os.Getenv("PLUGIN_FUNCTION_NAME")),
         Publish:         aws.Bool(true),
         S3Bucket:        aws.String(os.Getenv("PLUGIN_S3_BUCKET")),
-        S3Key:           aws.String(os.Getenv("PLUGIN_PATH_PREFIX") + "/" + os.Getenv("PLUGIN_FILE_NAME")),
+        S3Key:           aws.String(os.Getenv("PLUGIN_FILE_NAME")),
     }
 
     result, err := svc.UpdateFunctionCode(input)
