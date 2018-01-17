@@ -11,8 +11,16 @@ import (
 
 
 func main() {
+    // get function region and set default of us-east-1
+    region := os.Getenv("PLUGIN_FUNCTION_REGION")
+
+    if (region == "") {
+      region = "us-east-1"
+    }
+
+
     svc := lambda.New(session.New(&aws.Config{
-        Region: aws.String("us-east-1"),
+        Region: aws.String(region),
     }))
 
     input := &lambda.UpdateFunctionCodeInput{
@@ -49,4 +57,3 @@ func main() {
 
     fmt.Println(result)
 }
-
