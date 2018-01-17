@@ -13,6 +13,9 @@ pipeline:
 
   docker:
     image: plugins/docker
-    repo: omerxx/drone-lambda-plugin
+    repo: enlyze/drone-lambda-plugin
     tags: latest
-    secrets: [ docker_username, docker_password, docker_email ]
+    secrets: [docker_username, docker_password]
+    when:
+      status: [success]
+      branch: [master]

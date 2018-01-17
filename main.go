@@ -18,7 +18,6 @@ func main() {
       region = "us-east-1"
     }
 
-
     svc := lambda.New(session.New(&aws.Config{
         Region: aws.String(region),
     }))
