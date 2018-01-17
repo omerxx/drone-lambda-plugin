@@ -13,9 +13,7 @@ pipeline:
 
   docker:
     image: plugins/docker
+    debug: true
     repo: enlyze/drone-lambda-plugin
     tags: latest
-    secrets: [docker_username, docker_password]
-    when:
-      status: [success]
-      branch: [master]
+    secrets: [ docker_username, docker_password ]
