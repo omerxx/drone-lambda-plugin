@@ -44,9 +44,8 @@ func main() {
             // Message from an error.
             fmt.Println(err.Error())
         }
-        return
+        os.Exit(1)
     }
 
     fmt.Println(result)
 }
-
