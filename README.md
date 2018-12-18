@@ -33,9 +33,10 @@ docker run --rm \
 #### Example:
 
 ```yaml
-pipeline:
-  deploy-lambda:
-    image: omerxx/drone-lambda-plugin
+steps:
+- name: deploy-lambda
+  image: omerxx/drone-lambda-plugin
+  settings:
     pull: true
     function_name: my-function
     s3_bucket: some-bucket
@@ -45,31 +46,37 @@ pipeline:
 #### Example of a complete Lambda project's pipeline:
 
 ```yaml
-pipeline:
-  build:
-    image: python:2.7-alpine
-    commands:
-      - apk update && apk add zip
-      - pip install -r requirements.txt -t .
-      - zip -r -9 lambda-project-${DRONE_BUILD_NUMBER}.zip *
+kind: pipeline
+name: default
 
-  s3-publish:
-    image: plugins/s3
+steps:
+- name: build
+  image: python:2.7-alpine
+  commands:
+  - apk update && apk add zip
+  - pip install -r requirements.txt -t .
+  - zip -r -9 lambda-project-${DRONE_BUILD_NUMBER}.zip *
+
+- name: s3-publish
+  image: plugins/s3
+  settings:
     acl: private
     region: us-east-1
     bucket: some-bucket
     target: lambda-dir
     source: lambda-project-${DRONE_BUILD_NUMBER}.zip
 
-  deploy-lambda:
-    image: omerxx/drone-lambda-plugin
+- name: deploy-lambda
+  image: omerxx/drone-lambda-plugin
+  settings:
     pull: true
     function_name: my-function
     s3_bucket: some-bucket
     file_name: lambda-dir/revenue-report-${DRONE_BUILD_NUMBER}.zip
 
-  notify-slack-releases:
-    image: plugins/slack
+- name: notify-slack-releases
+  image: plugins/slack
+  settings:
     channel: product-releases
     webhook: https://hooks.slack.com/services/ABCD/XYZ
     username: Drone-CI
